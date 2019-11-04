@@ -73,6 +73,13 @@
             <artifactId>mybatis-generator-lombok-plugin</artifactId>
             <version>1.0</version>
         </dependency>
+
+        <!-- 合并java文件相关 -->
+        <dependency>
+            <groupId>com.github.javaparser</groupId>
+            <artifactId>javaparser-core</artifactId>
+            <version>3.2.10</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -94,7 +101,7 @@
                         <!-- windows打包开启-->
                         <icon>${project.basedir}/package/windows/mybatis-generator-gui.ico</icon>
                         <!-- mac打包开启-->
-                        <icon>${project.basedir}/package/macosx/mybatis-generator-gui.icns</icon>
+                        <!--<icon>${project.basedir}/package/macosx/mybatis-generator-gui.icns</icon>-->
                     </bundleArguments>
                     <mainClass>com.zzg.mybatis.generator.MainUI</mainClass>
                     <vendor>Owen Zou</vendor>

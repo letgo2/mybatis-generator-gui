@@ -46,7 +46,7 @@ public class DbRemarksCommentGenerator implements CommentGenerator {
         properties = new Properties();
     }
 
-
+    @Override
     public void addJavaFileComment(CompilationUnit compilationUnit) {
         // add no file level comments by default
         if (isAnnotations) {
@@ -177,6 +177,7 @@ public class DbRemarksCommentGenerator implements CommentGenerator {
             IntrospectedColumn introspectedColumn) {
     }
 
+    @Override
     public void addClassComment(InnerClass innerClass,
             IntrospectedTable introspectedTable, boolean markAsDoNotDelete) {
         innerClass.addJavaDocLine("/**"); //$NON-NLS-1$

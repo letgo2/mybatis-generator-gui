@@ -1,6 +1,10 @@
 package com.zzg.mybatis.generator.bridge;
 
 import com.jcraft.jsch.Session;
+import com.zzg.mybatis.generator.bridge.custommybatisgenerator.CustomCommentGenerator;
+import com.zzg.mybatis.generator.bridge.custommybatisgenerator.CustomDefaultShellCallback;
+import com.zzg.mybatis.generator.bridge.custommybatisgenerator.CustomJavaClientGenerator;
+import com.zzg.mybatis.generator.bridge.custommybatisgenerator.CustomMybatis3;
 import com.zzg.mybatis.generator.controller.PictureProcessStateController;
 import com.zzg.mybatis.generator.model.DatabaseConfig;
 import com.zzg.mybatis.generator.model.DbType;
@@ -28,6 +32,7 @@ import java.util.Set;
  * class
  * <p>
  * Created by Owen on 6/30/16.
+ * @author dfg
  */
 public class MybatisGeneratorBridge {
 
@@ -56,11 +61,13 @@ public class MybatisGeneratorBridge {
 
     public void generate() throws Exception {
         Configuration configuration = new Configuration();
-        Context context = new Context(ModelType.CONDITIONAL);
+        // 修改模式为flat
+        /*Context context = new Context(ModelType.CONDITIONAL);*/
+        Context context = new Context(ModelType.FLAT);
         configuration.addContext(context);
 		
         context.addProperty("javaFileEncoding", "UTF-8");
-        
+
 		String dbType = selectedDatabaseConfig.getDbType();
 		String connectorLibPath = ConfigHelper.findConnectorLibPath(dbType);
 	    _LOG.info("connectorLibPath: {}", connectorLibPath);
@@ -159,10 +166,9 @@ public class MybatisGeneratorBridge {
         mapperConfig.setTargetProject(generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
         // DAO
         JavaClientGeneratorConfiguration daoConfig = new JavaClientGeneratorConfiguration();
-        daoConfig.setConfigurationType("XMLMAPPER");
+        daoConfig.setConfigurationType(CustomJavaClientGenerator.class.getName());
         daoConfig.setTargetPackage(generatorConfig.getDaoPackage());
         daoConfig.setTargetProject(generatorConfig.getProjectFolder() + "/" + generatorConfig.getDaoTargetFolder());
-
 
         context.setId("myid");
         context.addTableConfiguration(tableConfig);
@@ -172,7 +178,9 @@ public class MybatisGeneratorBridge {
         context.setJavaClientGeneratorConfiguration(daoConfig);
         // Comment
         CommentGeneratorConfiguration commentConfig = new CommentGeneratorConfiguration();
-        commentConfig.setConfigurationType(DbRemarksCommentGenerator.class.getName());
+        // 使用自定义的注释
+        /*commentConfig.setConfigurationType(DbRemarksCommentGenerator.class.getName());*/
+        commentConfig.setConfigurationType(CustomCommentGenerator.class.getName());
         if (generatorConfig.isComment()) {
             commentConfig.addProperty("columnRemarks", "true");
         }
@@ -254,12 +262,17 @@ public class MybatisGeneratorBridge {
             }
         }
 
-        context.setTargetRuntime("MyBatis3");
+        // 重新生成生成的样式
+        /*context.setTargetRuntime("MyBatis3");*/
+        context.setTargetRuntime(CustomMybatis3.class.getName());
 
         List<String> warnings = new ArrayList<>();
         Set<String> fullyqualifiedTables = new HashSet<>();
         Set<String> contexts = new HashSet<>();
-        ShellCallback shellCallback = new DefaultShellCallback(true); // override=true
+        // 自定义dao的合成
+        /*ShellCallback shellCallback = new DefaultShellCallback(true); // override=true*/
+        DefaultShellCallback shellCallback = new CustomDefaultShellCallback(true, true);
+
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(configuration, shellCallback, warnings);
         // if overrideXML selected, delete oldXML ang generate new one
 		if (generatorConfig.isOverrideXML()) {
