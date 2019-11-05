@@ -55,6 +55,8 @@ public class CommonDAOInterfacePlugin extends PluginAdapter {
             mapperInterface.addJavaDocLine(" * " + "DAO公共基类，由MybatisGenerator自动生成请勿修改");
             mapperInterface.addJavaDocLine(" * " + "@param <Model> The Model Class 这里是泛型不是Model类");
             mapperInterface.addJavaDocLine(" * " + "@param <PK> The Primary Key Class 如果是无主键，则可以用Model来跳过，如果是多主键则是Key类");
+            // 添加作者
+            mapperInterface.addJavaDocLine(" * " + "@author mbg");
 			if (isUseExample()) {
 				mapperInterface.addJavaDocLine(" * " + "@param <E> The Example Class");
 			}
@@ -102,6 +104,7 @@ public class CommonDAOInterfacePlugin extends PluginAdapter {
                                    IntrospectedTable introspectedTable) {
         interfaze.addJavaDocLine("/**");
         interfaze.addJavaDocLine(" * " + interfaze.getType().getShortName() + "继承基类");
+        interfaze.addJavaDocLine(" * " + "@author mbg");
         interfaze.addJavaDocLine(" */");
 
         String daoSuperClass = interfaze.getType().getPackageName() + DEFAULT_DAO_SUPER_CLASS;

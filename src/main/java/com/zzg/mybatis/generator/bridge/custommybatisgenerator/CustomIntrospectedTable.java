@@ -2,6 +2,7 @@ package com.zzg.mybatis.generator.bridge.custommybatisgenerator;
 
 /**
  * 自定义dao层方法名和map文件CRUD操作名
+ * @author dfg
  */
 public class CustomIntrospectedTable {
     /** 查询通过ID */

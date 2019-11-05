@@ -43,4 +43,8 @@ public class CustomMybatis3 extends IntrospectedTableMyBatis3Impl {
         sb.append('.');
         sb.append(this.fullyQualifiedTable.getDomainObjectName());
     }
+
+
+    
+
 }

@@ -1,10 +1,14 @@
 package com.zzg.mybatis.generator.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Created by Owen on 6/18/16.
  */
 public class MyStringUtils {
 
+    private static final String TABLE_NAME_HEADER_JUDGMENT1 = "t_";
+    private static final String TABLE_NAME_HEADER_JUDGMENT2 = "tb_";
     /**
      *
      * convert string from slash style to camel style, such as my_course will convert to MyCourse
@@ -14,7 +18,14 @@ public class MyStringUtils {
      */
     public static String dbStringToCamelStyle(String str) {
         if (str != null) {
-            if (str.contains("_")) {
+            // 判断头部以t_或者tb_开头就舍去头部
+            if (str.startsWith(TABLE_NAME_HEADER_JUDGMENT1)) {
+                str = str.substring(2);
+            } else if (str.startsWith(TABLE_NAME_HEADER_JUDGMENT2)) {
+                str = str.substring(3);
+            }
+
+            if (!StringUtils.isBlank(str) && str.contains("_")) {
                 str = str.toLowerCase();
                 StringBuilder sb = new StringBuilder();
                 sb.append(String.valueOf(str.charAt(0)).toUpperCase());

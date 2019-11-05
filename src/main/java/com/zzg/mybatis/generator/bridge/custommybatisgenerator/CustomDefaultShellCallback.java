@@ -1,6 +1,7 @@
 package com.zzg.mybatis.generator.bridge.custommybatisgenerator;
 
 import com.github.javaparser.JavaParser;
+import com.github.javaparser.TokenRange;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.ImportDeclaration;
 import com.github.javaparser.ast.Node;
@@ -8,6 +9,7 @@ import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
+import com.github.javaparser.ast.comments.Comment;
 import org.mybatis.generator.config.MergeConstants;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
@@ -15,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.mybatis.generator.api.dom.OutputUtilities.newLine;
@@ -123,12 +126,7 @@ public class CustomDefaultShellCallback extends DefaultShellCallback {
                         break;
                     }
                 }
-                if (flag) {
-                    sb.append("    ");
-                    sb.append(f.toString());
-                    newLine(sb);
-                    newLine(sb);
-                }
+                addMethodAndField(sb, flag, f.getComment(), f.getTokenRange(), f.toString());
             }
 
             //合并methods
@@ -147,11 +145,7 @@ public class CustomDefaultShellCallback extends DefaultShellCallback {
                         break;
                     }
                 }
-                if (flag){
-                    addMethodAndComment(m.toString(), sb);
-                    newLine(sb);
-                    newLine(sb);
-                }
+                addMethodAndField(sb, flag, m.getComment(), m.getTokenRange(), m.toString());
             }
 
             //判断是否有内部类
@@ -168,6 +162,23 @@ public class CustomDefaultShellCallback extends DefaultShellCallback {
         }
 
         return sb.append(System.getProperty("line.separator")).append("}").toString();
+    }
+
+    private void addMethodAndField(StringBuilder sb, boolean flag, Optional<Comment> comment2, Optional<TokenRange> tokenRange, String s) {
+        if (flag){
+            sb.append("    ");
+            Optional<Comment> comment = comment2;
+            if (comment.isPresent()) {
+                sb.append(comment.get().getTokenRange().get().toString());
+                newLine(sb);
+                sb.append("    ");
+                sb.append(tokenRange.get().toString());
+            } else {
+                sb.append(s);
+            }
+            newLine(sb);
+            newLine(sb);
+        }
     }
 
     /**

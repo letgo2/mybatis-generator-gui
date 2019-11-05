@@ -14,8 +14,8 @@ import org.mybatis.generator.internal.util.messages.Messages;
  * @author      dfg
  * @since       2019/10/30 17:32
  */
-public class CustomXMLMapperGenerator extends AbstractXmlGenerator {
-    public CustomXMLMapperGenerator() {
+public class CustomXmlMapperGenerator extends AbstractXmlGenerator {
+    public CustomXmlMapperGenerator() {
     }
 
     protected XmlElement getSqlMapElement() {

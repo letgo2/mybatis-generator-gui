@@ -226,22 +226,21 @@ public class CustomCommentGenerator implements CommentGenerator {
      */
     private void addMbgGeneratedComment(JavaElement field, IntrospectedColumn introspectedColumn, ModelCommentType modelCommentType) {
         String remarks = introspectedColumn != null ? introspectedColumn.getRemarks() : "插件字段";
-        if (StringUtility.stringHasValue(remarks)) {
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("/** ");
-            stringBuilder.append("@mbg.generated ");
 
-            if (ModelCommentType.getterMethod.equals(modelCommentType)) {
-                stringBuilder.append("getter ");
-            } else if (ModelCommentType.setterMethod.equals(modelCommentType)) {
-                stringBuilder.append("setter ");
-            }
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("/** ");
+        stringBuilder.append("@mbg.generated ");
 
-            stringBuilder.append(remarks);
-            /*this.addJavadocTag(field, false);*/
-            stringBuilder.append(" */");
-            field.addJavaDocLine(stringBuilder.toString());
+        if (ModelCommentType.getterMethod.equals(modelCommentType)) {
+            stringBuilder.append("getter ");
+        } else if (ModelCommentType.setterMethod.equals(modelCommentType)) {
+            stringBuilder.append("setter ");
         }
+
+        stringBuilder.append(remarks);
+        /*this.addJavadocTag(field, false);*/
+        stringBuilder.append(" */");
+        field.addJavaDocLine(stringBuilder.toString());
     }
 
     /**
