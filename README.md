@@ -80,7 +80,7 @@ mybatis-generator-gui是基于[mybatis generator](http://www.mybatis.org/generat
     
 ### 改动点
 * 原先的dao文件、xml文件以及model不会保留自己添加的，现在的可以
-* 修改方法名更易于阅读
+* 修改为更简便的方法名
     
 ### QQ群
 鉴于有的同学可能有一些特殊情况不能使用，我建了一个QQ群供大家交流，QQ群号：613911142（已满），608454894（已满）, 677521221
