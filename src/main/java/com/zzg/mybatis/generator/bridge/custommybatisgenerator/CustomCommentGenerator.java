@@ -183,11 +183,13 @@ public class CustomCommentGenerator implements CommentGenerator {
     public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         if (!this.suppressAllComments) {
             String remarks = introspectedTable.getRemarks();
+
+            topLevelClass.addJavaDocLine("/** ");
             if (StringUtility.stringHasValue(remarks)) {
-                topLevelClass.addJavaDocLine("/** ");
                 topLevelClass.addJavaDocLine(" *   " + remarks);
-                topLevelClass.addJavaDocLine(" */");
             }
+            topLevelClass.addJavaDocLine(" * @author mbg");
+            topLevelClass.addJavaDocLine(" */");
         }
     }
 

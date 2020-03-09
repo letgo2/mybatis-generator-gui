@@ -237,7 +237,7 @@
                                              <HBox.margin>
                                                 <Insets right="10.0" />
                                              </HBox.margin></CheckBox>
-                                             <CheckBox fx:id="jsr310Support" mnemonicParsing="false" prefHeight="16.0" prefWidth="252.0" text="JSR310: Date and Time API" />
+                                             <CheckBox fx:id="jsr310Support" mnemonicParsing="false" selected="true" prefHeight="16.0" prefWidth="252.0" text="JSR310: Date and Time API" />
                                          </children>
                                      </HBox>
                                     <HBox spacing="18.0">
