@@ -28,13 +28,20 @@ public class CustomDeleteByIdsElementGenerator extends AbstractXmlElementGenerat
         answer.addAttribute(new Attribute("id", CustomIntrospectedTable.deleteByIds));
 
         this.context.getCommentGenerator().addComment(answer);
-        StringBuilder sb = new StringBuilder();
-        sb.append("delete from ");
-        sb.append(this.introspectedTable.getFullyQualifiedTableNameAtRuntime());
-        answer.addElement(new TextElement(sb.toString()));
+
+        /*// 去除表名
+        sb.append(this.introspectedTable.getFullyQualifiedTableNameAtRuntime());*/
+        answer.addElement(new TextElement("delete from "));
+
+        // 自定义表名的映射sql
+        XmlElement answer2 = new XmlElement("include");
+        answer2.addAttribute(new Attribute("refid", CustomIntrospectedTable.tableMapping));
+        answer.addElement(answer2);
+
         boolean and = false;
         Iterator var6 = this.introspectedTable.getPrimaryKeyColumns().iterator();
 
+        StringBuilder sb = new StringBuilder();
         while(var6.hasNext()) {
             IntrospectedColumn introspectedColumn = (IntrospectedColumn)var6.next();
             sb.setLength(0);

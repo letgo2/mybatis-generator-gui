@@ -23,7 +23,7 @@ public class CustomMybatis3 extends IntrospectedTableMyBatis3Impl {
 
 
         sb.append(this.fullyQualifiedTable.getDomainObjectName());
-        sb.append("Dao");
+        sb.append("Mapper");
 
         String mapperName = sb.toString();
         super.setMyBatis3JavaMapperType(mapperName);

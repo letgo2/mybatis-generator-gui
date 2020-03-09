@@ -26,21 +26,23 @@ public class CustomXmlMapperGenerator extends AbstractXmlGenerator {
         answer.addAttribute(new Attribute("namespace", namespace));
         this.context.getCommentGenerator().addRootComment(answer);
         this.addResultMapElement(answer);
-        //添加单表查询列名
+        // 添加表名映射sql
+        this.addTableMapping(answer);
+        // 添加单表查询列名
         this.addBaseColumnsElement(answer);
-        //添加多表查询列名
+        // 添加多表查询列名
         this.addTablesColumnsElement(answer);
-        //findById的mapper
+        // findById的mapper
         this.addFindByIdElement(answer);
-        //添加save的mapper
+        // 添加save的mapper
         this.addSaveElement(answer);
-        //添加saveSelective的mapper
+        // 添加saveSelective的mapper
         this.addSaveSelectiveElement(answer);
-        //添加update的mapper
+        // 添加update的mapper
         this.addUpdate(answer);
-        //添加deleteById的mapper
+        // 添加deleteById的mapper
         this.addDeleteById(answer);
-        //添加deleteByIds的mapper
+        // 添加deleteByIds的mapper
         this.addDeleteByIds(answer);
         return answer;
     }
@@ -48,6 +50,13 @@ public class CustomXmlMapperGenerator extends AbstractXmlGenerator {
     protected void addResultMapElement(XmlElement parentElement) {
         if (this.introspectedTable.getRules().generateBaseResultMap()) {
             AbstractXmlElementGenerator elementGenerator = new ResultMapElementGenerator(true);
+            this.initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+
+    protected void addTableMapping(XmlElement parentElement) {
+        if (this.introspectedTable.getRules().generateBaseColumnList()) {
+            AbstractXmlElementGenerator elementGenerator = new CustomTableMappingElementGenerator();
             this.initializeAndExecuteGenerator(elementGenerator, parentElement);
         }
     }

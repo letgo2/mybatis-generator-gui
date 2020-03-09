@@ -37,10 +37,16 @@ public class CustomDeleteByIdElementGenerator extends AbstractXmlElementGenerato
 
         answer.addAttribute(new Attribute("parameterType", parameterClass));
         this.context.getCommentGenerator().addComment(answer);
+        /*// 去除表名
+        sb.append(this.introspectedTable.getFullyQualifiedTableNameAtRuntime());*/
+        answer.addElement(new TextElement("delete from "));
+
+        // 自定义表名的映射sql
+        XmlElement answer2 = new XmlElement("include");
+        answer2.addAttribute(new Attribute("refid", CustomIntrospectedTable.tableMapping));
+        answer.addElement(answer2);
+
         StringBuilder sb = new StringBuilder();
-        sb.append("delete from ");
-        sb.append(this.introspectedTable.getFullyQualifiedTableNameAtRuntime());
-        answer.addElement(new TextElement(sb.toString()));
         boolean and = false;
         Iterator var6 = this.introspectedTable.getPrimaryKeyColumns().iterator();
 

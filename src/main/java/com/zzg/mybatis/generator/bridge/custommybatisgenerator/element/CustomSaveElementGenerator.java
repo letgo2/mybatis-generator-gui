@@ -55,14 +55,24 @@ public class CustomSaveElementGenerator extends AbstractXmlElementGenerator {
             }
         }
 
+        answer.addElement(new TextElement("insert into "));
+        /*// 插入一个表名
+        insertClause2.append(this.introspectedTable.getFullyQualifiedTableNameAtRuntime());*/
+
+        // 插入表名sql映射
+        XmlElement answer2 = new XmlElement("include");
+        answer2.addAttribute(new Attribute("refid", CustomIntrospectedTable.tableMapping));
+        answer.addElement(answer2);
+
         StringBuilder insertClause = new StringBuilder();
-        insertClause.append("insert into ");
-        insertClause.append(this.introspectedTable.getFullyQualifiedTableNameAtRuntime());
         insertClause.append(" (");
         StringBuilder valuesClause = new StringBuilder();
         valuesClause.append("values (");
-        List<String> valuesClauses = new ArrayList();
-        List<IntrospectedColumn> columns = ListUtilities.removeIdentityAndGeneratedAlwaysColumns(this.introspectedTable.getAllColumns());
+        List<String> valuesClauses = new ArrayList<>();
+        /*// 自动生成的字段移除主键
+        List<IntrospectedColumn> columns = ListUtilities.removeIdentityAndGeneratedAlwaysColumns(this.introspectedTable.getAllColumns());*/
+        // 获取所有字段
+        List<IntrospectedColumn> columns = this.introspectedTable.getAllColumns();
 
         for(int i = 0; i < columns.size(); ++i) {
             IntrospectedColumn introspectedColumn = (IntrospectedColumn)columns.get(i);

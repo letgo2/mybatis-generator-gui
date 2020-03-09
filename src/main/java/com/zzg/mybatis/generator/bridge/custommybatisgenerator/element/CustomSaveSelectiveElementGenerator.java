@@ -45,8 +45,15 @@ public class CustomSaveSelectiveElementGenerator extends AbstractXmlElementGener
 
         StringBuilder sb = new StringBuilder();
         sb.append("insert into ");
-        sb.append(this.introspectedTable.getFullyQualifiedTableNameAtRuntime());
+        /*// 去除表名
+        sb.append(this.introspectedTable.getFullyQualifiedTableNameAtRuntime());*/
         answer.addElement(new TextElement(sb.toString()));
+
+        // 自定义表名的映射sql
+        XmlElement answer2 = new XmlElement("include");
+        answer2.addAttribute(new Attribute("refid", CustomIntrospectedTable.tableMapping));
+        answer.addElement(answer2);
+
         XmlElement insertTrimElement = new XmlElement("trim");
         insertTrimElement.addAttribute(new Attribute("prefix", "("));
         insertTrimElement.addAttribute(new Attribute("suffix", ")"));
@@ -57,7 +64,9 @@ public class CustomSaveSelectiveElementGenerator extends AbstractXmlElementGener
         valuesTrimElement.addAttribute(new Attribute("suffix", ")"));
         valuesTrimElement.addAttribute(new Attribute("suffixOverrides", ","));
         answer.addElement(valuesTrimElement);
-        Iterator var8 = ListUtilities.removeIdentityAndGeneratedAlwaysColumns(this.introspectedTable.getAllColumns()).iterator();
+        /*// 自动生成的字段移除主键
+        Iterator var8 = ListUtilities.removeIdentityAndGeneratedAlwaysColumns(this.introspectedTable.getAllColumns()).iterator();*/
+        Iterator var8 = this.introspectedTable.getAllColumns().iterator();
 
         while(true) {
             while(var8.hasNext()) {

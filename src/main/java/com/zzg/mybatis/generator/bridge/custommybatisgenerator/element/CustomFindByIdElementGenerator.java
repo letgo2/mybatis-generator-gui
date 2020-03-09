@@ -45,15 +45,20 @@ public class CustomFindByIdElementGenerator extends AbstractXmlElementGenerator 
             sb.append("' as QUERYID,");
         }
         answer.addElement(new TextElement(sb.toString()));
-        //自定义查询的include
+        // 自定义查询的include
         XmlElement answer1 = new XmlElement("include");
         answer1.addAttribute(new Attribute("refid", CustomIntrospectedTable.findTable));
         answer.addElement(answer1);
 
         sb.setLength(0);
         sb.append("from ");
-        sb.append(this.introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
+//        sb.append(this.introspectedTable.getAliasedFullyQualifiedTableNameAtRuntime());
         answer.addElement(new TextElement(sb.toString()));
+        // 自定义表名的映射
+        XmlElement answer2 = new XmlElement("include");
+        answer2.addAttribute(new Attribute("refid", CustomIntrospectedTable.tableMapping));
+        answer.addElement(answer2);
+
         boolean and = false;
         Iterator var6 = this.introspectedTable.getPrimaryKeyColumns().iterator();
 
