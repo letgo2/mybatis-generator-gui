@@ -4,6 +4,7 @@ import com.zzg.mybatis.generator.bridge.custommybatisgenerator.element.*;
 import org.mybatis.generator.api.FullyQualifiedTable;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.Document;
+import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.codegen.AbstractXmlGenerator;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.*;
@@ -270,6 +271,8 @@ public class CustomXmlMapperGenerator extends AbstractXmlGenerator {
         elementGenerator.setIntrospectedTable(this.introspectedTable);
         elementGenerator.setProgressCallback(this.progressCallback);
         elementGenerator.setWarnings(this.warnings);
+        // 每个方法之间增加一行空白
+        parentElement.addElement(new TextElement(""));
         elementGenerator.addElements(parentElement);
     }
 
