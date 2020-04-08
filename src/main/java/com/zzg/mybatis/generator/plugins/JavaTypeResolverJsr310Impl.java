@@ -20,8 +20,10 @@ public class JavaTypeResolverJsr310Impl extends JavaTypeResolverDefaultImpl {
         FullyQualifiedJavaType answer = defaultType;
 
         switch (column.getJdbcType()) {
+            case Types.SMALLINT:
+            case Types.TINYINT:
             case Types.BIT:
-                answer = calculateBitReplacement(column, defaultType);
+                answer = new FullyQualifiedJavaType(Integer.class.getName());
                 break;
             case Types.DECIMAL:
             case Types.NUMERIC:
