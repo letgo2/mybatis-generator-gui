@@ -11,12 +11,12 @@ import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.*;
 import org.mybatis.generator.internal.util.messages.Messages;
 
 /**
- * @Description 自定义xml文件生成类
+ * @Description 自定义xml文件生成类 添加Curd操作
  * @author      dfg
  * @since       2019/10/30 17:32
  */
-public class CustomXmlMapperGenerator extends AbstractXmlGenerator {
-    public CustomXmlMapperGenerator() {
+public class CustomXmlMapperCreateCurdGenerator extends AbstractXmlGenerator {
+    public CustomXmlMapperCreateCurdGenerator() {
     }
 
     protected XmlElement getSqlMapElement() {
@@ -33,8 +33,7 @@ public class CustomXmlMapperGenerator extends AbstractXmlGenerator {
         this.addBaseColumnsElement(answer);
         // 添加多表查询列名
         this.addTablesColumnsElement(answer);
-        // 不需要生成curd
-        /*// findById的mapper
+        // findById的mapper
         this.addFindByIdElement(answer);
         // 添加save的mapper
         this.addSaveElement(answer);
@@ -45,7 +44,7 @@ public class CustomXmlMapperGenerator extends AbstractXmlGenerator {
         // 添加deleteById的mapper
         this.addDeleteById(answer);
         // 添加deleteByIds的mapper
-        this.addDeleteByIds(answer);*/
+        this.addDeleteByIds(answer);
         return answer;
     }
 

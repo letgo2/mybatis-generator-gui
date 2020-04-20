@@ -215,6 +215,7 @@
                                           <CheckBox fx:id="commentCheckBox" mnemonicParsing="false" selected="true" text="生成实体域注释(来自表注释)" />
                                            <!--修改为false-->
                                           <CheckBox fx:id="overrideXML" mnemonicParsing="false" selected="false" text="覆盖原XML" />
+                                          <CheckBox fx:id="createCURDCheckbox"  mnemonicParsing="false" selected="true" text="生成CURD" />
                                        </children>
                                     </HBox>
                                     <HBox spacing="18.0">

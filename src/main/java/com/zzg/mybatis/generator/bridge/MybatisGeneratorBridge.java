@@ -1,21 +1,14 @@
 package com.zzg.mybatis.generator.bridge;
 
-import com.jcraft.jsch.Session;
-import com.zzg.mybatis.generator.bridge.custommybatisgenerator.CustomCommentGenerator;
-import com.zzg.mybatis.generator.bridge.custommybatisgenerator.CustomDefaultShellCallback;
-import com.zzg.mybatis.generator.bridge.custommybatisgenerator.CustomJavaClientGenerator;
-import com.zzg.mybatis.generator.bridge.custommybatisgenerator.CustomMybatis3;
-import com.zzg.mybatis.generator.controller.PictureProcessStateController;
+import com.zzg.mybatis.generator.bridge.custommybatisgenerator.*;
 import com.zzg.mybatis.generator.model.DatabaseConfig;
 import com.zzg.mybatis.generator.model.DbType;
 import com.zzg.mybatis.generator.model.GeneratorConfig;
-import com.zzg.mybatis.generator.plugins.DbRemarksCommentGenerator;
 import com.zzg.mybatis.generator.util.ConfigHelper;
 import com.zzg.mybatis.generator.util.DbUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.api.ProgressCallback;
-import org.mybatis.generator.api.ShellCallback;
 import org.mybatis.generator.config.*;
 import org.mybatis.generator.internal.DefaultShellCallback;
 import org.slf4j.Logger;
@@ -166,7 +159,12 @@ public class MybatisGeneratorBridge {
         mapperConfig.setTargetProject(generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
         // DAO
         JavaClientGeneratorConfiguration daoConfig = new JavaClientGeneratorConfiguration();
-        daoConfig.setConfigurationType(CustomJavaClientGenerator.class.getName());
+        // 判断是否需要生成CURD
+        if (generatorConfig.isCreateCURD()) {
+            daoConfig.setConfigurationType(CustomJavaClientCreateCurdGenerator.class.getName());
+        } else {
+            daoConfig.setConfigurationType(CustomJavaClientGenerator.class.getName());
+        }
         daoConfig.setTargetPackage(generatorConfig.getDaoPackage());
         daoConfig.setTargetProject(generatorConfig.getProjectFolder() + "/" + generatorConfig.getDaoTargetFolder());
 

@@ -62,6 +62,8 @@ public class GeneratorConfig {
 
 	private boolean useTableNameAlias;
 
+	private boolean createCURD;
+
 	private boolean useDAOExtendStyle;
 
     private boolean useSchemaPrefix;
@@ -278,6 +280,18 @@ public class GeneratorConfig {
 
 	public boolean isUseTableNameAlias() {
 		return useTableNameAlias;
+	}
+
+	public boolean getCreateCURD() {
+		return this.createCURD;
+	}
+
+	public void setCreateCURD(boolean createCURD) {
+		this.createCURD = createCURD;
+	}
+
+	public boolean isCreateCURD() {
+		return createCURD;
 	}
 
 	public boolean isOverrideXML() {
