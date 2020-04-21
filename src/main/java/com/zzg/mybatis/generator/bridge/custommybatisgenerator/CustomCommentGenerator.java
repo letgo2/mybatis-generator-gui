@@ -80,12 +80,7 @@ public class CustomCommentGenerator implements CommentGenerator {
     @Override
     public void addComment(XmlElement xmlElement) {
         if (!this.suppressAllComments) {
-            xmlElement.addElement(new TextElement("<!--"));
-            StringBuilder sb = new StringBuilder();
-            sb.append("@mbg.generated");
-            xmlElement.addElement(new TextElement(sb.toString()));
-
-            xmlElement.addElement(new TextElement("-->"));
+            xmlElement.addElement(new TextElement("<!-- @mbg.generated -->"));
         }
     }
 
