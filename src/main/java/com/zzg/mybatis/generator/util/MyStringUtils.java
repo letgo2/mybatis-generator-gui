@@ -9,6 +9,7 @@ public class MyStringUtils {
 
     private static final String TABLE_NAME_HEADER_JUDGMENT1 = "t_";
     private static final String TABLE_NAME_HEADER_JUDGMENT2 = "tb_";
+    private static final String TABLE_NAME_HEADER_JUDGMENT3 = "tbl_";
     /**
      *
      * convert string from slash style to camel style, such as my_course will convert to MyCourse
@@ -23,6 +24,8 @@ public class MyStringUtils {
                 str = str.substring(2);
             } else if (str.startsWith(TABLE_NAME_HEADER_JUDGMENT2)) {
                 str = str.substring(3);
+            } else if (str.startsWith(TABLE_NAME_HEADER_JUDGMENT3)) {
+                str = str.substring(4);
             }
 
             if (!StringUtils.isBlank(str) && str.contains("_")) {
