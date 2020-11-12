@@ -89,7 +89,7 @@ public class MainUIController extends BaseFXController {
     @FXML
     private CheckBox useTableNameAliasCheckbox;
     @FXML
-    private CheckBox createCURDCheckbox;
+    private CheckBox onlyInsertCheckbox;
     @FXML
     private CheckBox annotationCheckBox;
     @FXML
@@ -236,7 +236,7 @@ public class MainUIController extends BaseFXController {
 		commentCheckBox.setTooltip(new Tooltip("使用数据库的列注释作为实体类字段名的Java注释 "));
 		useActualColumnNamesCheckbox.setTooltip(new Tooltip("是否使用数据库实际的列名作为实体类域的名称"));
 		useTableNameAliasCheckbox.setTooltip(new Tooltip("在Mapper XML文件中表名使用别名，并且列全部使用as查询"));
-        createCURDCheckbox.setTooltip(new Tooltip("在XML文件中生成CURD操作"));
+        onlyInsertCheckbox.setTooltip(new Tooltip("在XML文件中只生成insert操作"));
 		overrideXML.setTooltip(new Tooltip("重新生成时把原XML文件覆盖，否则是追加"));
         useDAOExtendStyle.setTooltip(new Tooltip("将通用接口方法放在公共接口中，DAO接口留空"));
         forUpdateCheckBox.setTooltip(new Tooltip("在Select语句中增加for update后缀"));
@@ -397,7 +397,7 @@ public class MainUIController extends BaseFXController {
         generatorConfig.setNeedToStringHashcodeEquals(needToStringHashcodeEquals.isSelected());
         generatorConfig.setUseLombokPlugin(useLombokPlugin.isSelected());
         generatorConfig.setUseTableNameAlias(useTableNameAliasCheckbox.isSelected());
-        generatorConfig.setCreateCURD(createCURDCheckbox.isSelected());
+        generatorConfig.setOnlyInsert(onlyInsertCheckbox.isSelected());
         generatorConfig.setNeedForUpdate(forUpdateCheckBox.isSelected());
         generatorConfig.setAnnotationDAO(annotationDAOCheckBox.isSelected());
         generatorConfig.setAnnotation(annotationCheckBox.isSelected());
@@ -428,7 +428,7 @@ public class MainUIController extends BaseFXController {
         needToStringHashcodeEquals.setSelected(generatorConfig.isNeedToStringHashcodeEquals());
         useLombokPlugin.setSelected(generatorConfig.isUseLombokPlugin());
         useTableNameAliasCheckbox.setSelected(generatorConfig.getUseTableNameAlias());
-        createCURDCheckbox.setSelected(generatorConfig.getCreateCURD());
+        onlyInsertCheckbox.setSelected(generatorConfig.getOnlyInsert());
         forUpdateCheckBox.setSelected(generatorConfig.isNeedForUpdate());
         annotationDAOCheckBox.setSelected(generatorConfig.isAnnotationDAO());
         annotationCheckBox.setSelected(generatorConfig.isAnnotation());

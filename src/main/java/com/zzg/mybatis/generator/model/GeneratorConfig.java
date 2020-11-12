@@ -62,7 +62,7 @@ public class GeneratorConfig {
 
 	private boolean useTableNameAlias;
 
-	private boolean createCURD;
+	private boolean onlyInsert;
 
 	private boolean useDAOExtendStyle;
 
@@ -282,16 +282,16 @@ public class GeneratorConfig {
 		return useTableNameAlias;
 	}
 
-	public boolean getCreateCURD() {
-		return this.createCURD;
+	public boolean getOnlyInsert() {
+		return this.onlyInsert;
 	}
 
-	public void setCreateCURD(boolean createCURD) {
-		this.createCURD = createCURD;
+	public void setOnlyInsert(boolean onlyInsert) {
+		this.onlyInsert = onlyInsert;
 	}
 
-	public boolean isCreateCURD() {
-		return createCURD;
+	public boolean isOnlyInsert() {
+		return onlyInsert;
 	}
 
 	public boolean isOverrideXML() {

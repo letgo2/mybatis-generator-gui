@@ -56,7 +56,7 @@ public class CustomJavaClientGenerator extends AbstractJavaClientGenerator {
             interfaze.addImportedType(fqjt);
         }
 
-        // 生成公共类的方法
+        // 生成dao的方法
         addFindByIdMethod(interfaze);
         addSaveMethod(interfaze);
         addSaveSelectiveMethod(interfaze);

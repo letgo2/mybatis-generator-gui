@@ -55,13 +55,13 @@ public class CustomJavaClientCreateCurdGenerator extends AbstractJavaClientGener
             interfaze.addImportedType(fqjt);
         }
 
-        // 生成公共类的方法
-        addFindByIdMethod(interfaze);
+        // 生成dao层的方法
+//        addFindByIdMethod(interfaze);
         addSaveMethod(interfaze);
         addSaveSelectiveMethod(interfaze);
-        addUpdateMethod(interfaze);
+        /*addUpdateMethod(interfaze);
         addDeleteByIdMethod(interfaze);
-        addDeleteByIdsMethod(interfaze);
+        addDeleteByIdsMethod(interfaze);*/
 
 
         List<CompilationUnit> answer = new ArrayList();

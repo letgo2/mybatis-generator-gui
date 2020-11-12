@@ -159,8 +159,8 @@ public class MybatisGeneratorBridge {
         mapperConfig.setTargetProject(generatorConfig.getProjectFolder() + "/" + generatorConfig.getMappingXMLTargetFolder());
         // DAO
         JavaClientGeneratorConfiguration daoConfig = new JavaClientGeneratorConfiguration();
-        // 判断是否需要生成CURD
-        if (generatorConfig.isCreateCURD()) {
+        // 判断是否只生成insert
+        if (generatorConfig.isOnlyInsert()) {
             daoConfig.setConfigurationType(CustomJavaClientCreateCurdGenerator.class.getName());
         } else {
             daoConfig.setConfigurationType(CustomJavaClientGenerator.class.getName());

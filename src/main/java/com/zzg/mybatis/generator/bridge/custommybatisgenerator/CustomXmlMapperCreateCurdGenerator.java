@@ -34,17 +34,17 @@ public class CustomXmlMapperCreateCurdGenerator extends AbstractXmlGenerator {
         // 添加多表查询列名
         this.addTablesColumnsElement(answer);
         // findById的mapper
-        this.addFindByIdElement(answer);
+//        this.addFindByIdElement(answer);
         // 添加save的mapper
         this.addSaveElement(answer);
         // 添加saveSelective的mapper
         this.addSaveSelectiveElement(answer);
-        // 添加update的mapper
+        /*// 添加update的mapper
         this.addUpdate(answer);
         // 添加deleteById的mapper
         this.addDeleteById(answer);
         // 添加deleteByIds的mapper
-        this.addDeleteByIds(answer);
+        this.addDeleteByIds(answer);*/
         return answer;
     }
 

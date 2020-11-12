@@ -33,8 +33,7 @@ public class CustomXmlMapperGenerator extends AbstractXmlGenerator {
         this.addBaseColumnsElement(answer);
         // 添加多表查询列名
         this.addTablesColumnsElement(answer);
-        // 不需要生成curd
-        /*// findById的mapper
+        // findById的mapper
         this.addFindByIdElement(answer);
         // 添加save的mapper
         this.addSaveElement(answer);
@@ -45,7 +44,7 @@ public class CustomXmlMapperGenerator extends AbstractXmlGenerator {
         // 添加deleteById的mapper
         this.addDeleteById(answer);
         // 添加deleteByIds的mapper
-        this.addDeleteByIds(answer);*/
+        this.addDeleteByIds(answer);
         return answer;
     }
 
