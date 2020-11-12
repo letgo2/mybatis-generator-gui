@@ -234,7 +234,7 @@
                                      </HBox>
                                      <HBox prefHeight="100.0" prefWidth="200.0">
                                          <children>
-                                             <CheckBox fx:id="useDAOExtendStyle" mnemonicParsing="false" selected="true" text="DAO方法抽出到公共父接口">
+                                             <CheckBox fx:id="useDAOExtendStyle" mnemonicParsing="false" selected="false" text="DAO方法抽出到公共父接口">
                                              <HBox.margin>
                                                 <Insets right="10.0" />
                                              </HBox.margin></CheckBox>

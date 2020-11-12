@@ -111,9 +111,9 @@ public class CustomDefaultShellCallback extends DefaultShellCallback {
                 sb.append("    ");
                 String fieldAndComment = f.toString();
                 int privateIndex = fieldAndComment.indexOf("private");
-                sb.append(fieldAndComment.substring(0, privateIndex));
+                sb.append(fieldAndComment, 0, privateIndex);
                 sb.append("    ");
-                sb.append(fieldAndComment.substring(privateIndex, fieldAndComment.length()));
+                sb.append(fieldAndComment.substring(privateIndex));
                 newLine(sb);
                 newLine(sb);
             }
@@ -133,9 +133,9 @@ public class CustomDefaultShellCallback extends DefaultShellCallback {
             List<MethodDeclaration> methods = types.get(i).getMethods();
             List<MethodDeclaration> existingMethods = oldTypes.get(i).getMethods();
             for (MethodDeclaration f: methods){
-                addMethodAndComment(f.toString(), sb);
-                newLine(sb);
-                newLine(sb);
+                addMethodAndField(sb, true, f.getComment(), f.getTokenRange(), f.toString());
+//                newLine(sb);
+//                newLine(sb);
             }
             for (MethodDeclaration m:existingMethods){
                 boolean flag = true;
@@ -179,31 +179,5 @@ public class CustomDefaultShellCallback extends DefaultShellCallback {
             newLine(sb);
             newLine(sb);
         }
-    }
-
-    /**
-     * 给生成的属性跟方法添加格式
-     * @param s
-     * @param sb
-     */
-    private void addMethodAndComment(String s, StringBuilder sb) {
-        int publicIndex = s.indexOf("public");
-
-        if (publicIndex == -1) {
-            sb.append("    ");
-            sb.append(s);
-            return ;
-        }
-        if (publicIndex != 0) {
-            sb.append("    ");
-        }
-
-        sb.append(s.substring(0, publicIndex));
-        sb.append("    ");
-        int returnIndex = s.indexOf("  ");
-        sb.append(s.substring(publicIndex, returnIndex));
-        sb.append("    ");
-        sb.append(s.substring(returnIndex, s.length() - 1));
-        sb.append("    }");
     }
 }

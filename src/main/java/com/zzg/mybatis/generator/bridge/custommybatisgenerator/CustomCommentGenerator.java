@@ -251,12 +251,15 @@ public class CustomCommentGenerator implements CommentGenerator {
     }
 
     /**
-     * 实体类构造方法注释
+     * dao层方法的文档级注释
      * @param method
      * @param introspectedTable
      */
     @Override
     public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
+        method.addJavaDocLine("/** ");
+        method.addJavaDocLine(" * @mbg.generated");
+        method.addJavaDocLine(" */");
     }
 
     /**
