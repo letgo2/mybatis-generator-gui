@@ -39,9 +39,9 @@ public class CustomXmlMapperCreateCurdGenerator extends AbstractXmlGenerator {
         this.addSaveElement(answer);
         // 添加saveSelective的mapper
         this.addSaveSelectiveElement(answer);
-        /*// 添加update的mapper
+        // 添加update的mapper
         this.addUpdate(answer);
-        // 添加deleteById的mapper
+        /*// 添加deleteById的mapper
         this.addDeleteById(answer);
         // 添加deleteByIds的mapper
         this.addDeleteByIds(answer);*/
