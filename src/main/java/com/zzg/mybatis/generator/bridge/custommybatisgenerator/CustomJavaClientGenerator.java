@@ -37,8 +37,8 @@ public class CustomJavaClientGenerator extends AbstractJavaClientGenerator {
         Interface interfaze = new Interface(type);
         interfaze.setVisibility(JavaVisibility.PUBLIC);
         // 添加dao层注解@Repository的import
-        FullyQualifiedJavaType importRepository = new FullyQualifiedJavaType("org.springframework.stereotype.Repository");
-        interfaze.addImportedType(importRepository);
+        /*FullyQualifiedJavaType importRepository = new FullyQualifiedJavaType("org.springframework.stereotype.Repository");
+        interfaze.addImportedType(importRepository);*/
         // 添加dao层注解@Repository 由框架自动完成是否配置
         /*interfaze.addAnnotation("@Repository");*/
         // 添加继承BaseDao
