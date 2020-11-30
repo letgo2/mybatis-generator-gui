@@ -87,8 +87,10 @@ public class CustomUpdateElementGenerator extends AbstractXmlElementGenerator {
             answer.addElement(new TextElement(sb.toString()));
         }
 
-        if (this.context.getPlugins().sqlMapUpdateByPrimaryKeySelectiveElementGenerated(answer, this.introspectedTable)) {
-            parentElement.addElement(answer);
+        if (this.introspectedTable.hasPrimaryKeyColumns()) {
+            if (this.context.getPlugins().sqlMapUpdateByPrimaryKeySelectiveElementGenerated(answer, this.introspectedTable)) {
+                parentElement.addElement(answer);
+            }
         }
 
     }

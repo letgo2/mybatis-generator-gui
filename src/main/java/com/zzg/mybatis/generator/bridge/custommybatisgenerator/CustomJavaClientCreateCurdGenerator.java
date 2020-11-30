@@ -59,8 +59,8 @@ public class CustomJavaClientCreateCurdGenerator extends AbstractJavaClientGener
 //        addFindByIdMethod(interfaze);
         addSaveMethod(interfaze);
         addSaveSelectiveMethod(interfaze);
-        /*addUpdateMethod(interfaze);
-        addDeleteByIdMethod(interfaze);
+        addUpdateMethod(interfaze);
+        /*addDeleteByIdMethod(interfaze);
         addDeleteByIdsMethod(interfaze);*/
 
 

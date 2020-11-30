@@ -56,24 +56,18 @@ public class CustomXmlMapperCreateCurdGenerator extends AbstractXmlGenerator {
     }
 
     protected void addTableMapping(XmlElement parentElement) {
-        if (this.introspectedTable.getRules().generateBaseColumnList()) {
-            AbstractXmlElementGenerator elementGenerator = new CustomTableMappingElementGenerator();
-            this.initializeAndExecuteGenerator(elementGenerator, parentElement);
-        }
+        AbstractXmlElementGenerator elementGenerator = new CustomTableMappingElementGenerator();
+        this.initializeAndExecuteGenerator(elementGenerator, parentElement);
     }
 
     protected void addBaseColumnsElement(XmlElement parentElement) {
-        if (this.introspectedTable.getRules().generateBaseColumnList()) {
-            AbstractXmlElementGenerator elementGenerator = new CustomBaseColumnsElementGenerator();
-            this.initializeAndExecuteGenerator(elementGenerator, parentElement);
-        }
+        AbstractXmlElementGenerator elementGenerator = new CustomBaseColumnsElementGenerator();
+        this.initializeAndExecuteGenerator(elementGenerator, parentElement);
     }
 
     protected void addTablesColumnsElement(XmlElement parentElement) {
-        if (this.introspectedTable.getRules().generateBaseColumnList()) {
-            AbstractXmlElementGenerator elementGenerator = new CustomTablesColumnsElementGenerator();
-            this.initializeAndExecuteGenerator(elementGenerator, parentElement);
-        }
+        AbstractXmlElementGenerator elementGenerator = new CustomTablesColumnsElementGenerator();
+        this.initializeAndExecuteGenerator(elementGenerator, parentElement);
     }
 
     private void addFindByIdElement(XmlElement parentElement) {
