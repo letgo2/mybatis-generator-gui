@@ -21,8 +21,12 @@ public class CustomMybatis3 extends IntrospectedTableMyBatis3Impl {
         sb.append(this.calculateJavaClientInterfacePackage());
         sb.append('.');
 
-
-        sb.append(this.fullyQualifiedTable.getDomainObjectName());
+        // 如果结尾是DO，去除DO
+        String domainName = this.fullyQualifiedTable.getDomainObjectName();
+        if (domainName.endsWith("DO")) {
+            domainName = domainName.substring(0, domainName.length() - 2);
+        }
+        sb.append(domainName);
         sb.append("Mapper");
 
         String mapperName = sb.toString();
