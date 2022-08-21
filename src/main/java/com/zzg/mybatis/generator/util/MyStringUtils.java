@@ -33,6 +33,7 @@ public class MyStringUtils {
             } else if (str.startsWith(TABLE_NAME_HEADER_JUDGMENT5)) {
                 // 跳过
             } else {
+                // 去掉前缀
                 str = str.substring(str.indexOf("_") + 1);
             }
 

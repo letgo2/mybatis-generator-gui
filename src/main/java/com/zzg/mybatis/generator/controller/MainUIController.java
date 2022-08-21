@@ -216,8 +216,9 @@ public class MainUIController extends BaseFXController {
                         selectedDatabaseConfig = (DatabaseConfig) treeItem.getParent().getGraphic().getUserData();
                         this.tableName = tableName;
                         tableNameField.setText(tableName);
-                        domainObjectNameField.setText(MyStringUtils.dbStringToCamelStyle(tableName));
-                        mapperName.setText(domainObjectNameField.getText().concat("Mapper"));
+                        String tableNameCamelStyle = MyStringUtils.dbStringToCamelStyle(tableName);
+                        domainObjectNameField.setText(tableNameCamelStyle.concat("DO"));
+                        mapperName.setText(tableNameCamelStyle.concat("Mapper"));
                     }
                 }
             });
