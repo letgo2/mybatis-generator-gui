@@ -17,9 +17,9 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
+ * @author dfg
  * @Description 自定义注释添加类
- * @author      dfg
- * @since       2019/10/30 17:25
+ * @since 2019/10/30 17:25
  */
 public class CustomCommentGenerator implements CommentGenerator {
     private Properties properties = new Properties();
@@ -67,6 +67,7 @@ public class CustomCommentGenerator implements CommentGenerator {
 
     /**
      * java文件注释
+     *
      * @param compilationUnit
      */
     @Override
@@ -75,17 +76,19 @@ public class CustomCommentGenerator implements CommentGenerator {
 
     /**
      * Mybatis的Mapper.xml文件里面的注释
+     *
      * @param xmlElement
      */
     @Override
     public void addComment(XmlElement xmlElement) {
         if (!this.suppressAllComments) {
-            xmlElement.addElement(new TextElement("<!-- @mbg.generated -->"));
+            //            xmlElement.addElement(new TextElement("<!-- @mbg.generated -->"));
         }
     }
 
     /**
      * 为根元素的第一个子节点添加注释
+     *
      * @param rootElement
      */
     @Override
@@ -107,6 +110,7 @@ public class CustomCommentGenerator implements CommentGenerator {
 
     /**
      * 添加自定义javadoc标签
+     *
      * @param javaElement
      * @param markAsDoNotDelete
      */
@@ -114,7 +118,7 @@ public class CustomCommentGenerator implements CommentGenerator {
         javaElement.addJavaDocLine(" *");
         StringBuilder sb = new StringBuilder();
         sb.append(" * ");
-        sb.append("@mbg.generated");
+        //        sb.append("@mbg.generated");
         if (markAsDoNotDelete) {
             sb.append(" do_not_delete_during_merge");
         }
@@ -138,6 +142,7 @@ public class CustomCommentGenerator implements CommentGenerator {
 
     /**
      * 类注释
+     *
      * @param innerClass
      * @param introspectedTable
      */
@@ -171,6 +176,7 @@ public class CustomCommentGenerator implements CommentGenerator {
 
     /**
      * 实体类头部注释
+     *
      * @param topLevelClass
      * @param introspectedTable
      */
@@ -181,11 +187,22 @@ public class CustomCommentGenerator implements CommentGenerator {
 
             topLevelClass.addJavaDocLine("/** ");
             if (StringUtility.stringHasValue(remarks)) {
-                topLevelClass.addJavaDocLine(" *   " + remarks);
+                topLevelClass.addJavaDocLine(" * " + remarks);
             }
             topLevelClass.addJavaDocLine(" * @author mbg");
             topLevelClass.addJavaDocLine(" */");
         }
+
+        topLevelClass.addImportedType("com.baomidou.mybatisplus.annotation.IdType");
+        topLevelClass.addImportedType("com.baomidou.mybatisplus.annotation.TableId");
+        topLevelClass.addImportedType("com.baomidou.mybatisplus.annotation.TableName");
+        topLevelClass.addImportedType("com.fasterxml.jackson.annotation.JsonFormat");
+        topLevelClass.addImportedType("com.fasterxml.jackson.databind.annotation.JsonSerialize");
+        topLevelClass.addImportedType("com.fasterxml.jackson.databind.ser.std.ToStringSerializer");
+
+        // 添加mp的表名注解
+        topLevelClass.addAnnotation("@TableName(value = \"" + introspectedTable.getFullyQualifiedTable()
+                .getIntrospectedTableName() + "\", autoResultMap = true)");
     }
 
     @Override
@@ -204,29 +221,45 @@ public class CustomCommentGenerator implements CommentGenerator {
 
     /**
      * 实体类数据库字段注释
+     *
      * @param field
      * @param introspectedTable
      * @param introspectedColumn
      */
     @Override
-    public void addFieldComment(Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
+    public void addFieldComment(Field field, IntrospectedTable introspectedTable,
+                                IntrospectedColumn introspectedColumn) {
         if (!this.suppressAllComments) {
             addMbgGeneratedComment(field, introspectedColumn, ModelCommentType.field);
+        }
+
+        // 主键增加mp的主键注解
+        if (introspectedColumn.isAutoIncrement()) {
+            field.addAnnotation("@JsonSerialize(using = ToStringSerializer.class)");
+            field.addAnnotation(
+                    "@TableId(value = \"" + introspectedColumn.getActualColumnName() + "\", type = IdType.AUTO)");
+        }
+
+        // LocalDateTime增加注解
+        if (introspectedColumn.getFullyQualifiedJavaType().getShortName().equals("LocalDateTime")) {
+            field.addAnnotation("@JsonFormat(pattern = \"yyyy-MM-dd HH:mm:ss\")");
         }
     }
 
     /**
      * 自动生成的字段跟GetterSetter方法添加注解的方法
+     *
      * @param field
      * @param introspectedColumn
      * @param modelCommentType
      */
-    private void addMbgGeneratedComment(JavaElement field, IntrospectedColumn introspectedColumn, ModelCommentType modelCommentType) {
+    private void addMbgGeneratedComment(JavaElement field, IntrospectedColumn introspectedColumn,
+                                        ModelCommentType modelCommentType) {
         String remarks = introspectedColumn != null ? introspectedColumn.getRemarks() : "插件字段";
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("/** ");
-        stringBuilder.append("@mbg.generated ");
+        //        stringBuilder.append("@mbg.generated ");
 
         if (ModelCommentType.getterMethod.equals(modelCommentType)) {
             stringBuilder.append("getter ");
@@ -242,6 +275,7 @@ public class CustomCommentGenerator implements CommentGenerator {
 
     /**
      * 实体类其他字段注释（例如插件）
+     *
      * @param field
      * @param introspectedTable
      */
@@ -252,64 +286,74 @@ public class CustomCommentGenerator implements CommentGenerator {
 
     /**
      * dao层方法的文档级注释
+     *
      * @param method
      * @param introspectedTable
      */
     @Override
     public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
-        method.addJavaDocLine("/** ");
-        method.addJavaDocLine(" * @mbg.generated");
-        method.addJavaDocLine(" */");
+        //        method.addJavaDocLine("/** ");
+        //        method.addJavaDocLine(" * @mbg.generated");
+        //        method.addJavaDocLine(" */");
     }
 
     /**
      * 实体类get方法注释
+     *
      * @param method
      * @param introspectedTable
      * @param introspectedColumn
      */
     @Override
-    public void addGetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
+    public void addGetterComment(Method method, IntrospectedTable introspectedTable,
+                                 IntrospectedColumn introspectedColumn) {
         addMbgGeneratedComment(method, introspectedColumn, ModelCommentType.getterMethod);
     }
 
     /**
      * 实体类set方法注释
+     *
      * @param method
      * @param introspectedTable
      * @param introspectedColumn
      */
     @Override
-    public void addSetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
+    public void addSetterComment(Method method, IntrospectedTable introspectedTable,
+                                 IntrospectedColumn introspectedColumn) {
         addMbgGeneratedComment(method, introspectedColumn, ModelCommentType.setterMethod);
     }
 
-
     @Override
-    public void addGeneralMethodAnnotation(Method method, IntrospectedTable introspectedTable, Set<FullyQualifiedJavaType> imports) {
+    public void addGeneralMethodAnnotation(Method method, IntrospectedTable introspectedTable,
+                                           Set<FullyQualifiedJavaType> imports) {
         imports.add(new FullyQualifiedJavaType("javax.annotation.Generated"));
         String comment = "Source Table: " + introspectedTable.getFullyQualifiedTable().toString();
         method.addAnnotation(this.getGeneratedAnnotation(comment));
     }
 
     @Override
-    public void addGeneralMethodAnnotation(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn, Set<FullyQualifiedJavaType> imports) {
+    public void addGeneralMethodAnnotation(Method method, IntrospectedTable introspectedTable,
+                                           IntrospectedColumn introspectedColumn, Set<FullyQualifiedJavaType> imports) {
         imports.add(new FullyQualifiedJavaType("javax.annotation.Generated"));
-        String comment = "Source field: " + introspectedTable.getFullyQualifiedTable().toString() + "." + introspectedColumn.getActualColumnName();
+        String comment = "Source field: " + introspectedTable.getFullyQualifiedTable()
+                .toString() + "." + introspectedColumn.getActualColumnName();
         method.addAnnotation(this.getGeneratedAnnotation(comment));
     }
 
     @Override
-    public void addFieldAnnotation(Field field, IntrospectedTable introspectedTable, Set<FullyQualifiedJavaType> imports) {
+    public void addFieldAnnotation(Field field, IntrospectedTable introspectedTable,
+                                   Set<FullyQualifiedJavaType> imports) {
         imports.add(new FullyQualifiedJavaType("javax.annotation.Generated"));
         String comment = "Source Table: " + introspectedTable.getFullyQualifiedTable().toString();
         field.addAnnotation(this.getGeneratedAnnotation(comment));
     }
 
     @Override
-    public void addFieldAnnotation(Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn, Set<FullyQualifiedJavaType> imports) {
+    public void addFieldAnnotation(Field field, IntrospectedTable introspectedTable,
+                                   IntrospectedColumn introspectedColumn, Set<FullyQualifiedJavaType> imports) {
         imports.add(new FullyQualifiedJavaType("javax.annotation.Generated"));
-        String comment = "Source field: " + introspectedTable.getFullyQualifiedTable().toString() + "." + introspectedColumn.getActualColumnName();
+        String comment = "Source field: " + introspectedTable.getFullyQualifiedTable()
+                .toString() + "." + introspectedColumn.getActualColumnName();
         field.addAnnotation(this.getGeneratedAnnotation(comment));
         if (!this.suppressAllComments && this.addRemarkComments) {
             String remarks = introspectedColumn.getRemarks();
@@ -332,7 +376,8 @@ public class CustomCommentGenerator implements CommentGenerator {
     }
 
     @Override
-    public void addClassAnnotation(InnerClass innerClass, IntrospectedTable introspectedTable, Set<FullyQualifiedJavaType> imports) {
+    public void addClassAnnotation(InnerClass innerClass, IntrospectedTable introspectedTable,
+                                   Set<FullyQualifiedJavaType> imports) {
         imports.add(new FullyQualifiedJavaType("javax.annotation.Generated"));
         String comment = "Source Table: " + introspectedTable.getFullyQualifiedTable().toString();
         innerClass.addAnnotation(this.getGeneratedAnnotation(comment));

@@ -217,7 +217,8 @@ public class MainUIController extends BaseFXController {
                         this.tableName = tableName;
                         tableNameField.setText(tableName);
                         String tableNameCamelStyle = MyStringUtils.dbStringToCamelStyle(tableName);
-                        domainObjectNameField.setText(tableNameCamelStyle.concat("DO"));
+//                        domainObjectNameField.setText(tableNameCamelStyle.concat("DO"));
+                        domainObjectNameField.setText(tableNameCamelStyle);
                         mapperName.setText(tableNameCamelStyle.concat("Mapper"));
                     }
                 }
@@ -237,7 +238,7 @@ public class MainUIController extends BaseFXController {
 		commentCheckBox.setTooltip(new Tooltip("使用数据库的列注释作为实体类字段名的Java注释 "));
 		useActualColumnNamesCheckbox.setTooltip(new Tooltip("是否使用数据库实际的列名作为实体类域的名称"));
 		useTableNameAliasCheckbox.setTooltip(new Tooltip("在Mapper XML文件中表名使用别名，并且列全部使用as查询"));
-        onlyInsertCheckbox.setTooltip(new Tooltip("在XML文件中只生成insert操作"));
+        onlyInsertCheckbox.setTooltip(new Tooltip("不生成任何方法"));
 		overrideXML.setTooltip(new Tooltip("重新生成时把原XML文件覆盖，否则是追加"));
         useDAOExtendStyle.setTooltip(new Tooltip("将通用接口方法放在公共接口中，DAO接口留空"));
         forUpdateCheckBox.setTooltip(new Tooltip("在Select语句中增加for update后缀"));

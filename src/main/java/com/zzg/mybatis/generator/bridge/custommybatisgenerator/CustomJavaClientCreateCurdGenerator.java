@@ -57,9 +57,9 @@ public class CustomJavaClientCreateCurdGenerator extends AbstractJavaClientGener
 
         // 生成dao层的方法
 //        addFindByIdMethod(interfaze);
-        addSaveMethod(interfaze);
-        addSaveSelectiveMethod(interfaze);
-        addUpdateMethod(interfaze);
+//        addSaveMethod(interfaze);
+//        addSaveSelectiveMethod(interfaze);
+//        addUpdateMethod(interfaze);
         /*addDeleteByIdMethod(interfaze);
         addDeleteByIdsMethod(interfaze);*/
 

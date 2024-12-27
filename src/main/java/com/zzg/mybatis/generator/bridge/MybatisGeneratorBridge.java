@@ -190,10 +190,10 @@ public class MybatisGeneratorBridge {
         context.addProperty(PropertyRegistry.CONTEXT_JAVA_FILE_ENCODING, generatorConfig.getEncoding());
 
         //实体添加序列化
-        PluginConfiguration serializablePluginConfiguration = new PluginConfiguration();
-        serializablePluginConfiguration.addProperty("type", "org.mybatis.generator.plugins.SerializablePlugin");
-        serializablePluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
-        context.addPluginConfiguration(serializablePluginConfiguration);
+//        PluginConfiguration serializablePluginConfiguration = new PluginConfiguration();
+//        serializablePluginConfiguration.addProperty("type", "org.mybatis.generator.plugins.SerializablePlugin");
+//        serializablePluginConfiguration.setConfigurationType("org.mybatis.generator.plugins.SerializablePlugin");
+//        context.addPluginConfiguration(serializablePluginConfiguration);
 
         // Lombok 插件
         if (generatorConfig.isUseLombokPlugin()) {
